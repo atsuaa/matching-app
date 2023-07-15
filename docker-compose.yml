@@ -100,11 +100,16 @@ services:
         networks:
             - sail
     adminer:
+        container_name: adminer
+        hostname: adminer
         image: adminer
+        restart: always
+        ports:
+            - 8080:8080
         depends_on:
             - mysql
-        ports:
-            - 8090:8080
+        networks:
+            - sail
 networks:
     sail:
         driver: bridge
