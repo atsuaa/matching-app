@@ -31,6 +31,12 @@
             </header>
         @endif
 
+        @if (session('flash'))
+            @foreach (session('flash') as $key => $item)
+                <div class="alert alert-{{ $key }}">{{ session('flash.' . $key) }}</div>
+            @endforeach
+        @endif
+
         <!-- Page Content -->
         <main>
             {{ $slot }}

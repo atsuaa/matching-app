@@ -32,29 +32,30 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($blogs as $blog)
+                @foreach ($entities as $entity)
                     <tr class="border-b bg-white dark:border-gray-700 dark:bg-gray-900">
                         <th class="whitespace-nowrap px-6 py-4 font-medium text-gray-900 dark:text-white"
                             scope="row">
-                            {{ $blog->id }}
+                            {{ $entity->id }}
                         </th>
                         <td class="px-6 py-4">
-                            {{ $blog->title }}
+                            {{ $entity->title }}
                         </td>
                         <td class="px-6 py-4">
-                            {{ $blog->created_at }}
+                            {{ $entity->created_at }}
                         </td>
                         <td class="px-6 py-4">
-                            {{ $blog->updated_at }}
+                            {{ $entity->updated_at }}
                         </td>
                         <td class="px-6 py-4">
                             <a class="font-medium text-blue-600 hover:underline dark:text-blue-500"
-                                href="{{ route('blog.show', ['id' => $blog->id]) }}">Show</a>
+                                href="{{ route('blog.show', ['id' => $entity->id]) }}">Show</a>
                         </td>
                     </tr>
                 @endforeach
             </tbody>
         </table>
+        {{ $entities->links() }}
     </div>
 
 </section>

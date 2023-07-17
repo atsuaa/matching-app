@@ -25,10 +25,10 @@ class BlogController extends Controller
         if (isset($param['published'])) {
             $query->whereIn('published', $param['published']);
         }
-        $blogs = $query->get();
+        $entities = $query->paginate(15);
         return view('blog.index', [
             'param' => $param,
-            'blogs' => $blogs,
+            'entities' => $entities,
         ]);
     }
 
@@ -46,7 +46,7 @@ class BlogController extends Controller
      */
     public function create()
     {
-        return view('blog.create', ['blog' => null]);
+        return view('blog.create', ['entity' => null]);
     }
 
     /**
@@ -54,13 +54,18 @@ class BlogController extends Controller
      */
     public function store(StoreBlogRequest $request)
     {
-        $blog = new Blog();
-        $data = $request->validated();
-        $blog->user_id = $request->user()->id;
-        $blog->title = $data['title'];
-        $blog->body = $data['body'];
-        $blog->published = $data['published'];
-        $blog->save();
+        try {
+            $entity = new Blog();
+            $data = $request->validated();
+            $entity->user_id = $request->user()->id;
+            $entity->title = $data['title'];
+            $entity->body = $data['body'];
+            $entity->published = $data['published'];
+            $entity->save();
+            session()->flash('flash.success', config('message.store.success'));
+        } catch (\Throwable $th) {
+            session()->flash('flash.error', config('message.store.fail'));
+        }
 
         return redirect(route('blog.index'));
     }
@@ -70,13 +75,13 @@ class BlogController extends Controller
      */
     public function show(int $id)
     {
-        $blog = Blog::find($id);
-        if (is_null($blog)) {
+        $entity = Blog::find($id);
+        if (is_null($entity)) {
             return redirect(route('blog.index'));
         }
 
         return view('blog.show', [
-            'blog' => $blog,
+            'entity' => $entity,
             'id' => $id,
         ]);
     }
@@ -86,13 +91,13 @@ class BlogController extends Controller
      */
     public function edit(int $id)
     {
-        $blog = Blog::find($id);
-        if (is_null($blog)) {
+        $entity = Blog::find($id);
+        if (is_null($entity)) {
             return redirect(route('blog.index'));
         }
 
         return view('blog.edit', [
-            'blog' => $blog,
+            'entity' => $entity,
         ]);
     }
 
@@ -101,12 +106,17 @@ class BlogController extends Controller
      */
     public function update(UpdateBlogRequest $request, int $id)
     {
-        $blog = Blog::find($id);
-        $data = $request->validated();
-        $blog->title = $data['title'];
-        $blog->body = $data['body'];
-        $blog->published = $data['published'];
-        $blog->save();
+        try {
+            $entity = Blog::find($id);
+            $data = $request->validated();
+            $entity->title = $data['title'];
+            $entity->body = $data['body'];
+            $entity->published = $data['published'];
+            $entity->save();
+            session()->flash('flash.success', config('message.update.success'));
+        } catch (\Throwable $th) {
+            session()->flash('flash.error', config('message.update.fail'));
+        }
 
         return redirect(route('blog.show', ['id' => $id]));
     }
@@ -116,11 +126,16 @@ class BlogController extends Controller
      */
     public function destroy(int $id)
     {
-        $blog = Blog::find($id);
-        if (is_null($blog)) {
-            return redirect(route('blog.index'));
+        try {
+            $entity = Blog::find($id);
+            if (is_null($entity)) {
+                return redirect(route('blog.index'));
+            }
+            $entity->delete();
+            session()->flash('flash.success', config('message.delete.success'));
+        } catch (\Throwable $th) {
+            session()->flash('flash.error', config('message.delete.fail'));
         }
-        $blog->delete();
 
         return redirect(route('blog.index'));
     }

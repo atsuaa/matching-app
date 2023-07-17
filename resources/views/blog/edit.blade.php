@@ -21,7 +21,7 @@
                         </header>
 
                         <form class="mt-6 space-y-6" method="post"
-                            action="{{ route('blog.update', ['id' => $blog->id]) }}">
+                            action="{{ route('blog.update', ['id' => $entity->id]) }}">
                             @csrf
                             @method('patch')
                             @include('blog.partials.input')

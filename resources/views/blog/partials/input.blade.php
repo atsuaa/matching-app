@@ -13,21 +13,21 @@
         @csrf
         <div>
             <x-input-label for="title" :value="__('Title')" />
-            <x-text-input class="mt-1 block w-full" id="title" name="title" type="text" :value="old('title', $blog?->title)" required
+            <x-text-input class="mt-1 block w-full" id="title" name="title" type="text" :value="old('title', $entity?->title)" required
                 autofocus autocomplete="title" />
             <x-input-error class="mt-2" :messages="$errors->get('title')" />
         </div>
 
         <div>
             <x-input-label for="body" :value="__('Body')" />
-            <x-textarea-wysiwyg-editor id="body" name="body" :value="old('body', $blog?->body)" required="required" />
-            <x-input-error class="mt-2" :messages="$errors->get('body', $blog?->body)" />
+            <x-textarea-wysiwyg-editor id="body" name="body" :value="old('body', $entity?->body)" required="required" />
+            <x-input-error class="mt-2" :messages="$errors->get('body', $entity?->body)" />
         </div>
 
         <div>
             <x-input-radio>
-                <x-input-radio-item id="published-0" name="published" value="0" label="非公開" :checked="old('published', $blog?->published) == 0" />
-                <x-input-radio-item id="published-1" name="published" value="1" label="公開" :checked="old('published', $blog?->published) == 1" />
+                <x-input-radio-item id="published-0" name="published" value="0" label="非公開" :checked="old('published', $entity?->published) == 0" />
+                <x-input-radio-item id="published-1" name="published" value="1" label="公開" :checked="old('published', $entity?->published) == 1" />
             </x-input-radio>
             <x-input-error class="mt-2" :messages="$errors->get('published')" />
         </div>
