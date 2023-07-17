@@ -1,9 +1,9 @@
-<p>{{ $user->id }}</p>
-<p>{{ $user->name }}</p>
-<p>{{ $user->created_at }}</p>
-<p>{{ $user->updated_at }}</p>
+<p>{{ $entity->id }}</p>
+<p>{{ $entity->name }}</p>
+<p>{{ $entity->created_at }}</p>
+<p>{{ $entity->updated_at }}</p>
 <p>
-<form id="favorite-user-form" action="{{ route('user.favorite', ['id' => $user->id]) }}" method="post">
+<form id="favorite-user-form" action="{{ route('user.favorite', ['id' => $entity->id]) }}" method="post">
     @csrf
     <input name="favorite" type="hidden" value="{{ $isFavoritedUser ? 0 : 1 }}">
 </form>
@@ -18,7 +18,7 @@
             const formData = $('#favorite-user-form');
             $.ajax({
                 type: "post",
-                url: "{{ route('user.favorite', ['id' => $user->id]) }}",
+                url: "{{ route('user.favorite', ['id' => $entity->id]) }}",
                 data: formData.serialize(),
             }).done(function(response) {
                 location.reload();

@@ -32,29 +32,30 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($users as $user)
+                @foreach ($entities as $entity)
                     <tr class="border-b bg-white dark:border-gray-700 dark:bg-gray-900">
                         <th class="whitespace-nowrap px-6 py-4 font-medium text-gray-900 dark:text-white"
                             scope="row">
-                            {{ $user->id }}
+                            {{ $entity->id }}
                         </th>
                         <td class="px-6 py-4">
-                            {{ $user->name }}
+                            {{ $entity->name }}
                         </td>
                         <td class="px-6 py-4">
-                            {{ $user->created_at }}
+                            {{ $entity->created_at }}
                         </td>
                         <td class="px-6 py-4">
-                            {{ $user->updated_at }}
+                            {{ $entity->updated_at }}
                         </td>
                         <td class="px-6 py-4">
                             <a class="font-medium text-blue-600 hover:underline dark:text-blue-500"
-                                href="{{ route('user.show', ['id' => $user->id]) }}">Show</a>
+                                href="{{ route('user.show', ['id' => $entity->id]) }}">Show</a>
                         </td>
                     </tr>
                 @endforeach
             </tbody>
         </table>
+        {{ $entities->links() }}
     </div>
 
 </section>

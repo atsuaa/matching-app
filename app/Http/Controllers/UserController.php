@@ -23,10 +23,10 @@ class UserController extends Controller
         if (isset($param['name'])) {
             $query->where('name', 'like', '%' . $param['name'] . '%');
         }
-        $users = $query->get();
+        $entities = $query->paginate(15);
         return view('user.index', [
             'param' => $param,
-            'users' => $users,
+            'entities' => $entities,
         ]);
     }
 
@@ -44,8 +44,8 @@ class UserController extends Controller
      */
     public function show(Request $request, int $id)
     {
-        $user = User::find($id);
-        if (is_null($user)) {
+        $entity = User::find($id);
+        if (is_null($entity)) {
             return redirect(route('user.index'));
         }
 
@@ -55,7 +55,7 @@ class UserController extends Controller
             ->first();
 
         return view('user.show', [
-            'user' => $user,
+            'entity' => $entity,
             'id' => $id,
             'isFavoritedUser' => is_null($FavariteUserEntity) ? 0 : 1,
         ]);
@@ -69,6 +69,12 @@ class UserController extends Controller
         $data = $request->validated();
 
         $result = $this->favoriteUserService($data, $request, $id);
+
+        if ($result === 1) {
+            session()->flash('flash.success', config('message.favorite.success'));
+        } else {
+            session()->flash('flash.success', config('message.unfavorite.success'));
+        }
 
         return response()->json([
             'data' => [

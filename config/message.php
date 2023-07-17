@@ -13,4 +13,10 @@ return [
         'success' => '削除に成功しました。',
         'fail' => '削除に失敗しました。',
     ],
+    'favorite' => [
+        'success' => 'いいねしました。',
+    ],
+    'unfavorite' => [
+        'success' => 'いいねを取り消しました。',
+    ],
 ];
