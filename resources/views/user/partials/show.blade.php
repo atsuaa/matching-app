@@ -11,6 +11,9 @@
     'is-favorite' => $isFavoritedUser,
 ])>いいね</button>
 </p>
+<p>
+    <a href="{{ route('thread.store', ['id' => $entity->id]) }}">メッセージを送る</a>
+</p>
 
 <script>
     $(function() {

@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\MessageController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ThreadController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -43,6 +45,12 @@ Route::middleware('auth')->group(function () {
     Route::post('/user/search', [UserController::class, 'search'])->name('user.search');
     Route::get('/user/{id}', [UserController::class, 'show'])->name('user.show');
     Route::post('/user/favorite/{id}', [UserController::class, 'favorite'])->name('user.favorite');
+
+    Route::get('/thread', [ThreadController::class, 'index'])->name('thread.index');
+    Route::get('/thread/store/{id}', [ThreadController::class, 'store'])->name('thread.store');
+
+    Route::get('/message/{thread_id}', [MessageController::class, 'index'])->name('message.index');
+    Route::post('/message/{thread_id}/store', [MessageController::class, 'store'])->name('message.store');
 });
 
 require __DIR__ . '/auth.php';
