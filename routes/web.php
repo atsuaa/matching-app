@@ -29,20 +29,20 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
+    Route::post('/blog/search', [BlogController::class, 'search'])->name('blog.search');
+    Route::get('/blog/create', [BlogController::class, 'create'])->name('blog.create');
+    Route::post('/blog/store', [BlogController::class, 'store'])->name('blog.store');
+    Route::get('/blog/{id}', [BlogController::class, 'show'])->name('blog.show');
+    Route::get('/blog/{id}/edit', [BlogController::class, 'edit'])->name('blog.edit');
+    Route::patch('/blog/{id}/update', [BlogController::class, 'update'])->name('blog.update');
+    Route::delete('/blog/{id}/destroy', [BlogController::class, 'destroy'])->name('blog.destroy');
+
+    Route::get('/user', [UserController::class, 'index'])->name('user.index');
+    Route::post('/user/search', [UserController::class, 'search'])->name('user.search');
+    Route::get('/user/{id}', [UserController::class, 'show'])->name('user.show');
+    Route::post('/user/favorite/{id}', [UserController::class, 'favorite'])->name('user.favorite');
 });
-
-Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
-Route::post('/blog/search', [BlogController::class, 'search'])->name('blog.search');
-Route::get('/blog/create', [BlogController::class, 'create'])->name('blog.create');
-Route::post('/blog/store', [BlogController::class, 'store'])->name('blog.store');
-Route::get('/blog/{id}', [BlogController::class, 'show'])->name('blog.show');
-Route::get('/blog/{id}/edit', [BlogController::class, 'edit'])->name('blog.edit');
-Route::patch('/blog/{id}/update', [BlogController::class, 'update'])->name('blog.update');
-Route::delete('/blog/{id}/destroy', [BlogController::class, 'destroy'])->name('blog.destroy');
-
-Route::get('/user', [UserController::class, 'index'])->name('user.index');
-Route::post('/user/search', [UserController::class, 'search'])->name('user.search');
-Route::get('/user/{id}', [UserController::class, 'show'])->name('user.show');
-Route::post('/user/favorite/{id}', [UserController::class, 'favorite'])->name('user.favorite');
 
 require __DIR__ . '/auth.php';
