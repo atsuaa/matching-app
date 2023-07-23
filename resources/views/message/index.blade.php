@@ -14,7 +14,7 @@
                 </div>
                 <div class="flex flex-col leading-tight">
                     <div class="mt-1 flex items-center text-2xl">
-                        <span class="mr-3 text-gray-700">{{ $threadEntity->anotherUser(Auth::user()->id)->name }}</span>
+                        <span class="mr-3 text-gray-700">{{ $threadEntity->anotherUser(Auth::user())->name }}</span>
                     </div>
                     <span class="text-lg text-gray-600">Junior Developer</span>
                 </div>

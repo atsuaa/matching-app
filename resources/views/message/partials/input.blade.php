@@ -1,6 +1,6 @@
 <form action="{{ route('message.store', ['thread_id' => $threadEntity->id]) }}" method="post">
     @csrf
-    <input name="to_user_id" type="hidden" value="{{ $threadEntity->anotherUser(Auth::user()->id)->id }}">
+    <input name="to_user_id" type="hidden" value="{{ $threadEntity->anotherUser(Auth::user())->id }}">
     <div class="mb-2 border-t-2 border-gray-200 px-4 pt-4 sm:mb-0">
         <div class="relative flex">
             <input

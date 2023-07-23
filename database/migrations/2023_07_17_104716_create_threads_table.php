@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('threads', function (Blueprint $table) {
             $table->id();
+            $table->unsignedTinyInteger('message_exist')->nullable()->comment('メッセージが存在する');
             $table->softDeletes();
             $table->timestamps();
         });

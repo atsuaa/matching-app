@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Thread extends Model
@@ -20,15 +20,10 @@ class Thread extends Model
     }
 
     /**
-     * このユーザーの持つスレッド
+     * 相手のユーザー
      */
-    public function users(): BelongsToMany
+    public function anotherUser(User $user)
     {
-        return $this->belongsToMany(User::class, 'user_thread');
-    }
-
-    public function anotherUser($userId)
-    {
-        return $this->users()->wherePivot('user_id', '!=', $userId)->first();
+        return $this->belongsToMany(User::class, 'thread_members')->wherePivot('user_id', '!=', $user->id)->first();
     }
 }

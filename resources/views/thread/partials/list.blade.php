@@ -39,7 +39,7 @@
                             {{ $entity->id }}
                         </th>
                         <td class="px-6 py-4">
-                            {{ $entity->anotherUser(Auth::user()->id)?->name }}
+                            {{ $entity->anotherUser(Auth::user())->name }}
                         </td>
                         <td class="px-6 py-4">
                             {{ $entity->created_at }}

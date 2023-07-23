@@ -5,6 +5,8 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -45,10 +47,10 @@ class User extends Authenticatable
     ];
 
     /**
-     * このユーザーの持つスレッド
+     * このユーザーの閲覧するスレッド
      */
     public function threads(): BelongsToMany
     {
-        return $this->belongsToMany(Thread::class, 'user_thread');
+        return $this->belongsToMany(Thread::class, 'thread_viewings');
     }
 }
